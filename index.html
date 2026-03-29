@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Imen Tiramisu — Commandes</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5EFE0;
+    --espresso: #2C1A0E;
+    --caramel: #C8873A;
+    --mascarpone: #FAF5EC;
+    --cocoa: #6B3A2A;
+    --pale: #EDE4D0;
+    --gold: #D4A853;
+  }
+
+- { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+background: var(–espresso);
+font-family: ‘DM Mono’, monospace;
+color: var(–cream);
+min-height: 100vh;
+overflow-x: hidden;
+}
+
+/* Background texture */
+body::before {
+content: ‘’;
+position: fixed;
+inset: 0;
+background:
+radial-gradient(ellipse at 20% 50%, rgba(200,135,58,0.08) 0%, transparent 60%),
+radial-gradient(ellipse at 80% 20%, rgba(107,58,42,0.15) 0%, transparent 50%),
+repeating-linear-gradient(
+45deg,
+transparent,
+transparent 40px,
+rgba(255,255,255,0.01) 40px,
+rgba(255,255,255,0.01) 41px
+);
+pointer-events: none;
+z-index: 0;
+}
+
+.container { position: relative; z-index: 1; max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+/* HEADER */
+header {
+border-bottom: 1px solid rgba(212,168,83,0.3);
+padding: 28px 0;
+margin-bottom: 48px;
+}
+
+.header-inner {
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+
+.logo {
+display: flex;
+align-items: baseline;
+gap: 12px;
+}
+
+.logo-icon {
+font-size: 28px;
+filter: drop-shadow(0 0 12px rgba(212,168,83,0.4));
+}
+
+.logo-text {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 22px;
+font-weight: 300;
+letter-spacing: 0.12em;
+color: var(–gold);
+}
+
+.logo-text span {
+font-style: italic;
+font-weight: 400;
+}
+
+.date-badge {
+font-size: 10px;
+letter-spacing: 0.2em;
+color: rgba(245,239,224,0.4);
+text-transform: uppercase;
+}
+
+/* TABS */
+.tabs {
+display: flex;
+gap: 2px;
+margin-bottom: 40px;
+background: rgba(255,255,255,0.04);
+border-radius: 8px;
+padding: 4px;
+}
+
+.tab-btn {
+flex: 1;
+padding: 10px 20px;
+background: transparent;
+border: none;
+color: rgba(245,239,224,0.45);
+font-family: ‘DM Mono’, monospace;
+font-size: 11px;
+letter-spacing: 0.15em;
+text-transform: uppercase;
+cursor: pointer;
+border-radius: 6px;
+transition: all 0.2s;
+}
+
+.tab-btn.active {
+background: var(–caramel);
+color: var(–espresso);
+font-weight: 500;
+}
+
+.tab-btn:hover:not(.active) {
+color: var(–cream);
+background: rgba(255,255,255,0.06);
+}
+
+/* TAB PANELS */
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* SECTION TITLES */
+.section-title {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 32px;
+font-weight: 300;
+font-style: italic;
+color: var(–gold);
+margin-bottom: 8px;
+}
+
+.section-sub {
+font-size: 11px;
+letter-spacing: 0.18em;
+text-transform: uppercase;
+color: rgba(245,239,224,0.35);
+margin-bottom: 36px;
+}
+
+/* FORM */
+.form-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 20px;
+margin-bottom: 24px;
+}
+
+.form-group { display: flex; flex-direction: column; gap: 8px; }
+.form-group.full { grid-column: 1 / -1; }
+
+label {
+font-size: 10px;
+letter-spacing: 0.2em;
+text-transform: uppercase;
+color: rgba(245,239,224,0.5);
+}
+
+input, select, textarea {
+background: rgba(255,255,255,0.05);
+border: 1px solid rgba(212,168,83,0.2);
+border-radius: 6px;
+padding: 12px 16px;
+color: var(–cream);
+font-family: ‘DM Mono’, monospace;
+font-size: 13px;
+outline: none;
+transition: border-color 0.2s, background 0.2s;
+width: 100%;
+}
+
+input:focus, select:focus, textarea:focus {
+border-color: var(–gold);
+background: rgba(212,168,83,0.06);
+}
+
+select option { background: var(–espresso); }
+textarea { resize: vertical; min-height: 80px; }
+
+/* RECETTE ITEMS */
+.recette-section {
+background: rgba(255,255,255,0.03);
+border: 1px solid rgba(212,168,83,0.15);
+border-radius: 10px;
+padding: 20px;
+margin-bottom: 20px;
+}
+
+.recette-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 16px;
+}
+
+.recette-title {
+font-size: 11px;
+letter-spacing: 0.2em;
+text-transform: uppercase;
+color: var(–caramel);
+}
+
+.qty-control {
+display: flex;
+align-items: center;
+gap: 0;
+border: 1px solid rgba(212,168,83,0.25);
+border-radius: 6px;
+overflow: hidden;
+}
+
+.qty-btn {
+width: 36px;
+height: 36px;
+background: rgba(212,168,83,0.1);
+border: none;
+color: var(–gold);
+font-size: 18px;
+cursor: pointer;
+transition: background 0.15s;
+font-family: ‘DM Mono’, monospace;
+}
+
+.qty-btn:hover { background: rgba(212,168,83,0.22); }
+
+.qty-display {
+width: 52px;
+text-align: center;
+background: transparent;
+border: none;
+border-left: 1px solid rgba(212,168,83,0.2);
+border-right: 1px solid rgba(212,168,83,0.2);
+color: var(–cream);
+font-family: ‘DM Mono’, monospace;
+font-size: 15px;
+padding: 0;
+height: 36px;
+}
+
+.ingredient-list {
+list-style: none;
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 6px;
+}
+
+.ingredient-item {
+display: flex;
+align-items: center;
+gap: 8px;
+font-size: 12px;
+color: rgba(245,239,224,0.65);
+padding: 6px 10px;
+background: rgba(255,255,255,0.03);
+border-radius: 4px;
+}
+
+.ingredient-item .dot {
+width: 5px; height: 5px;
+border-radius: 50%;
+background: var(–caramel);
+flex-shrink: 0;
+}
+
+.ingredient-qty {
+margin-left: auto;
+color: var(–gold);
+font-size: 11px;
+}
+
+/* VARIANTES */
+.variantes-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 10px;
+margin-bottom: 20px;
+}
+
+.variante-card {
+border: 1px solid rgba(212,168,83,0.2);
+border-radius: 8px;
+padding: 14px;
+cursor: pointer;
+transition: all 0.2s;
+background: rgba(255,255,255,0.02);
+}
+
+.variante-card:hover {
+border-color: var(–caramel);
+background: rgba(200,135,58,0.07);
+}
+
+.variante-card.selected {
+border-color: var(–gold);
+background: rgba(212,168,83,0.1);
+}
+
+.variante-icon { font-size: 22px; margin-bottom: 6px; }
+.variante-name {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 14px;
+font-weight: 600;
+color: var(–cream);
+margin-bottom: 2px;
+}
+.variante-desc { font-size: 10px; color: rgba(245,239,224,0.4); }
+
+/* SUBMIT BTN */
+.submit-btn {
+width: 100%;
+padding: 16px;
+background: var(–caramel);
+border: none;
+border-radius: 8px;
+color: var(–espresso);
+font-family: ‘DM Mono’, monospace;
+font-size: 12px;
+font-weight: 500;
+letter-spacing: 0.2em;
+text-transform: uppercase;
+cursor: pointer;
+transition: all 0.2s;
+margin-top: 8px;
+position: relative;
+overflow: hidden;
+}
+
+.submit-btn:hover {
+background: var(–gold);
+transform: translateY(-1px);
+box-shadow: 0 8px 24px rgba(200,135,58,0.35);
+}
+
+.submit-btn:active { transform: translateY(0); }
+
+/* ORDERS LIST */
+.orders-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 20px;
+}
+
+.orders-count {
+background: var(–caramel);
+color: var(–espresso);
+font-size: 11px;
+font-weight: 500;
+padding: 3px 10px;
+border-radius: 20px;
+}
+
+.orders-list { display: flex; flex-direction: column; gap: 14px; }
+
+.order-card {
+background: rgba(255,255,255,0.04);
+border: 1px solid rgba(212,168,83,0.18);
+border-radius: 10px;
+padding: 20px 22px;
+transition: all 0.2s;
+animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+from { opacity: 0; transform: translateY(-8px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+.order-card:hover {
+border-color: rgba(212,168,83,0.35);
+background: rgba(255,255,255,0.06);
+}
+
+.order-top {
+display: flex;
+justify-content: space-between;
+align-items: flex-start;
+margin-bottom: 12px;
+}
+
+.order-id {
+font-size: 10px;
+letter-spacing: 0.15em;
+color: var(–gold);
+opacity: 0.7;
+}
+
+.order-meta {
+display: flex;
+flex-direction: column;
+gap: 3px;
+}
+
+.order-client {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 18px;
+font-weight: 600;
+color: var(–cream);
+}
+
+.order-timestamp {
+font-size: 10px;
+color: rgba(245,239,224,0.35);
+}
+
+.status-badge {
+padding: 4px 12px;
+border-radius: 20px;
+font-size: 10px;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+font-weight: 500;
+cursor: pointer;
+border: none;
+transition: all 0.2s;
+}
+
+.status-en-attente { background: rgba(200,135,58,0.2); color: var(–caramel); border: 1px solid rgba(200,135,58,0.3); }
+.status-en-cours { background: rgba(212,168,83,0.2); color: var(–gold); border: 1px solid rgba(212,168,83,0.3); }
+.status-pret { background: rgba(60,140,80,0.2); color: #6fcf7a; border: 1px solid rgba(60,140,80,0.3); }
+
+.order-details {
+display: flex;
+flex-wrap: wrap;
+gap: 8px;
+margin-bottom: 12px;
+}
+
+.detail-chip {
+display: flex;
+align-items: center;
+gap: 6px;
+background: rgba(255,255,255,0.05);
+border-radius: 4px;
+padding: 4px 10px;
+font-size: 11px;
+color: rgba(245,239,224,0.7);
+}
+
+.order-note {
+font-size: 12px;
+color: rgba(245,239,224,0.5);
+font-style: italic;
+border-top: 1px solid rgba(212,168,83,0.1);
+padding-top: 10px;
+margin-top: 4px;
+}
+
+.order-actions {
+display: flex;
+gap: 8px;
+margin-top: 14px;
+}
+
+.action-btn {
+padding: 7px 14px;
+border-radius: 6px;
+font-family: ‘DM Mono’, monospace;
+font-size: 10px;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+cursor: pointer;
+border: 1px solid;
+transition: all 0.18s;
+}
+
+.btn-progress {
+background: transparent;
+border-color: rgba(212,168,83,0.35);
+color: var(–gold);
+}
+.btn-progress:hover { background: rgba(212,168,83,0.12); }
+
+.btn-done {
+background: transparent;
+border-color: rgba(60,140,80,0.35);
+color: #6fcf7a;
+}
+.btn-done:hover { background: rgba(60,140,80,0.1); }
+
+.btn-delete {
+background: transparent;
+border-color: rgba(200,80,80,0.3);
+color: rgba(220,100,100,0.7);
+margin-left: auto;
+}
+.btn-delete:hover { background: rgba(200,80,80,0.1); border-color: rgba(200,80,80,0.6); }
+
+/* EMPTY STATE */
+.empty-state {
+text-align: center;
+padding: 64px 0;
+color: rgba(245,239,224,0.25);
+}
+
+.empty-icon { font-size: 48px; margin-bottom: 16px; opacity: 0.4; }
+.empty-text {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 20px;
+font-style: italic;
+margin-bottom: 6px;
+color: rgba(245,239,224,0.35);
+}
+
+/* TOAST */
+.toast {
+position: fixed;
+bottom: 28px;
+right: 28px;
+background: var(–caramel);
+color: var(–espresso);
+padding: 12px 22px;
+border-radius: 8px;
+font-size: 12px;
+font-weight: 500;
+letter-spacing: 0.08em;
+box-shadow: 0 8px 28px rgba(0,0,0,0.4);
+z-index: 100;
+opacity: 0;
+transform: translateY(10px);
+transition: all 0.3s;
+pointer-events: none;
+}
+.toast.show { opacity: 1; transform: translateY(0); }
+
+/* RECETTE TAB */
+.recipe-card {
+background: rgba(255,255,255,0.03);
+border: 1px solid rgba(212,168,83,0.18);
+border-radius: 12px;
+padding: 28px;
+margin-bottom: 20px;
+}
+
+.recipe-card-title {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 26px;
+font-weight: 400;
+color: var(–gold);
+margin-bottom: 4px;
+}
+
+.recipe-tag {
+display: inline-block;
+background: rgba(200,135,58,0.15);
+color: var(–caramel);
+font-size: 10px;
+letter-spacing: 0.15em;
+text-transform: uppercase;
+padding: 3px 10px;
+border-radius: 20px;
+margin-bottom: 20px;
+}
+
+.recipe-steps {
+display: flex;
+flex-direction: column;
+gap: 12px;
+counter-reset: step;
+}
+
+.recipe-step {
+display: flex;
+gap: 14px;
+counter-increment: step;
+}
+
+.step-num {
+width: 28px;
+height: 28px;
+border-radius: 50%;
+border: 1px solid rgba(212,168,83,0.3);
+color: var(–gold);
+font-size: 11px;
+display: flex;
+align-items: center;
+justify-content: center;
+flex-shrink: 0;
+font-family: ‘Cormorant Garamond’, serif;
+font-weight: 600;
+}
+
+.step-text { font-size: 13px; color: rgba(245,239,224,0.7); line-height: 1.7; padding-top: 4px; }
+
+/* FILTER BAR */
+.filter-bar {
+display: flex;
+gap: 8px;
+margin-bottom: 24px;
+flex-wrap: wrap;
+}
+
+.filter-btn {
+padding: 6px 14px;
+border-radius: 20px;
+font-family: ‘DM Mono’, monospace;
+font-size: 10px;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+cursor: pointer;
+background: transparent;
+border: 1px solid rgba(212,168,83,0.2);
+color: rgba(245,239,224,0.45);
+transition: all 0.18s;
+}
+
+.filter-btn.active, .filter-btn:hover {
+border-color: var(–caramel);
+color: var(–caramel);
+background: rgba(200,135,58,0.08);
+}
+
+@media (max-width: 600px) {
+.form-grid { grid-template-columns: 1fr; }
+.variantes-grid { grid-template-columns: 1fr 1fr; }
+.ingredient-list { grid-template-columns: 1fr; }
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">☕</span>
+        <span class="logo-text">Imen <span>Tiramisu</span></span>
+      </div>
+      <span class="date-badge" id="currentDate"></span>
+    </div>
+  </header>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('commandes')">📋 Commandes</button>
+    <button class="tab-btn" onclick="switchTab('nouvelle')">✚ Nouvelle commande</button>
+    <button class="tab-btn" onclick="switchTab('recette')">📖 Recette de base</button>
+  </div>
+
+  <!-- TAB COMMANDES -->
+
+  <div class="tab-panel active" id="tab-commandes">
+    <div class="orders-header">
+      <div>
+        <div class="section-title">En cuisine</div>
+        <div class="section-sub">Commandes à préparer</div>
+      </div>
+      <span class="orders-count" id="ordersCount">0 commande</span>
+    </div>
+
+```
+<div class="filter-bar">
+  <button class="filter-btn active" onclick="setFilter('all', this)">Toutes</button>
+  <button class="filter-btn" onclick="setFilter('en-attente', this)">En attente</button>
+  <button class="filter-btn" onclick="setFilter('en-cours', this)">En cours</button>
+  <button class="filter-btn" onclick="setFilter('pret', this)">Prêts</button>
+</div>
+
+<div class="orders-list" id="ordersList">
+  <div class="empty-state" id="emptyState">
+    <div class="empty-icon">🍽</div>
+    <div class="empty-text">Aucune commande pour le moment</div>
+    <div style="font-size:11px;letter-spacing:0.15em;text-transform:uppercase;">Créez votre première commande →</div>
+  </div>
+</div>
+```
+
+  </div>
+
+  <!-- TAB NOUVELLE COMMANDE -->
+
+  <div class="tab-panel" id="tab-nouvelle">
+    <div class="section-title">Nouvelle commande</div>
+    <div class="section-sub">Remplissez les détails à transmettre à la cuisine</div>
+
+```
+<div class="form-grid">
+  <div class="form-group">
+    <label>Nom du client</label>
+    <input type="text" id="clientName" placeholder="Ex: Table 4 / Dupont...">
+  </div>
+  <div class="form-group">
+    <label>Employé assigné</label>
+    <select id="employee">
+      <option value="">— Sélectionner —</option>
+      <option>Imen</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Date de livraison</label>
+    <input type="datetime-local" id="deliveryDate">
+  </div>
+  <div class="form-group">
+    <label>Priorité</label>
+    <select id="priority">
+      <option value="normale">🟡 Normale</option>
+      <option value="urgent">🔴 Urgente</option>
+      <option value="basse">🟢 Basse</option>
+    </select>
+  </div>
+</div>
+
+<!-- Variantes -->
+<div style="margin-bottom:20px;">
+  <label style="display:block;margin-bottom:12px;">Variante du tiramisu</label>
+  <div class="variantes-grid">
+    <div class="variante-card selected" onclick="selectVariante(this, 'Classique')" data-variante="Classique">
+      <div class="variante-icon">☕</div>
+      <div class="variante-name">Classique</div>
+      <div class="variante-desc">Café, mascarpone, cacao</div>
+    </div>
+    <div class="variante-card" onclick="selectVariante(this, 'Snickers')" data-variante="Snickers">
+      <div class="variante-icon">🥜</div>
+      <div class="variante-name">Snickers</div>
+      <div class="variante-desc">Caramel, cacahuètes, chocolat</div>
+    </div>
+    <div class="variante-card" onclick="selectVariante(this, 'Oreo')" data-variante="Oreo">
+      <div class="variante-icon">🖤</div>
+      <div class="variante-name">Oreo</div>
+      <div class="variante-desc">Biscuits Oreo, crème vanille</div>
+    </div>
+    <div class="variante-card" onclick="selectVariante(this, 'Bueno')" data-variante="Bueno">
+      <div class="variante-icon">🍫</div>
+      <div class="variante-name">Bueno</div>
+      <div class="variante-desc">Noisette, chocolat au lait</div>
+    </div>
+    <div class="variante-card" onclick="selectVariante(this, 'Bueno White')" data-variante="Bueno White">
+      <div class="variante-icon">🤍</div>
+      <div class="variante-name">Bueno White</div>
+      <div class="variante-desc">Noisette, chocolat blanc</div>
+    </div>
+    <div class="variante-card" onclick="selectVariante(this, 'Spéculoos')" data-variante="Spéculoos">
+      <div class="variante-icon">🍪</div>
+      <div class="variante-name">Spéculoos</div>
+      <div class="variante-desc">Biscuits spéculoos, cannelle</div>
+    </div>
+  </div>
+</div>
+
+<!-- Quantité & taille -->
+<div class="recette-section">
+  <div class="recette-header">
+    <span class="recette-title">Quantité & format</span>
+    <div style="display:flex;gap:16px;align-items:center;">
+      <select id="format" style="width:140px;">
+        <option>Individuel (1 pers)</option>
+        <option>Moyen (4 pers)</option>
+        <option>Grand (8 pers)</option>
+        <option>Maxi (12 pers)</option>
+      </select>
+      <div class="qty-control">
+        <button class="qty-btn" onclick="changeQty(-1)">−</button>
+        <input class="qty-display" type="number" id="qtyInput" value="1" min="1" max="50" readonly>
+        <button class="qty-btn" onclick="changeQty(1)">+</button>
+      </div>
+    </div>
+  </div>
+  <div style="font-size:11px;color:rgba(245,239,224,0.35);letter-spacing:0.12em;">
+    Ingrédients calculés automatiquement selon la quantité
+  </div>
+</div>
+
+<div class="form-group full" style="margin-bottom:20px;">
+  <label>Note pour la cuisine</label>
+  <textarea id="kitchenNote" placeholder="Allergies, demandes spéciales, présentation particulière..."></textarea>
+</div>
+
+<button class="submit-btn" onclick="createOrder()">
+  ✦ Envoyer à la cuisine
+</button>
+```
+
+  </div>
+
+  <!-- TAB RECETTE -->
+
+  <div class="tab-panel" id="tab-recette">
+    <div class="section-title">Recette de base</div>
+    <div class="section-sub">Référence pour vos employés</div>
+
+```
+<div class="recipe-card">
+  <div class="recipe-card-title">Tiramisu Classique</div>
+  <span class="recipe-tag">Pour 6 personnes</span>
+
+  <div style="margin-bottom:20px;">
+    <div style="font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--caramel);margin-bottom:12px;">Ingrédients</div>
+    <ul class="ingredient-list">
+      <li class="ingredient-item"><span class="dot"></span>Mascarpone<span class="ingredient-qty">500g</span></li>
+      <li class="ingredient-item"><span class="dot"></span>Oeufs<span class="ingredient-qty">4</span></li>
+      <li class="ingredient-item"><span class="dot"></span>Sucre<span class="ingredient-qty">100g</span></li>
+      <li class="ingredient-item"><span class="dot"></span>Biscuits à la cuillère<span class="ingredient-qty">24</span></li>
+      <li class="ingredient-item"><span class="dot"></span>Café fort<span class="ingredient-qty">300ml</span></li>
+      <li class="ingredient-item"><span class="dot"></span>Amaretto<span class="ingredient-qty">2 cs</span></li>
+      <li class="ingredient-item"><span class="dot"></span>Cacao en poudre<span class="ingredient-qty">30g</span></li>
+      <li class="ingredient-item"><span class="dot"></span>Sel<span class="ingredient-qty">1 pincée</span></li>
+    </ul>
+  </div>
+
+  <div style="font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--caramel);margin-bottom:16px;">Préparation</div>
+  <div class="recipe-steps">
+    <div class="recipe-step"><div class="step-num">1</div><div class="step-text">Séparer les blancs des jaunes d'œufs. Fouetter les jaunes avec le sucre jusqu'à ce que le mélange blanchisse et devienne mousseux.</div></div>
+    <div class="recipe-step"><div class="step-num">2</div><div class="step-text">Incorporer le mascarpone aux jaunes sucrés. Mélanger jusqu'à obtenir une crème lisse et homogène.</div></div>
+    <div class="recipe-step"><div class="step-num">3</div><div class="step-text">Monter les blancs en neige ferme avec la pincée de sel. Les incorporer délicatement à la crème mascarpone en soulevant la masse.</div></div>
+    <div class="recipe-step"><div class="step-num">4</div><div class="step-text">Mélanger le café refroidi avec l'amaretto. Tremper rapidement les biscuits (2 à 3 secondes max) sans les dégorger.</div></div>
+    <div class="recipe-step"><div class="step-num">5</div><div class="step-text">Disposer une couche de biscuits dans le plat, couvrir de crème mascarpone. Répéter l'opération pour obtenir deux couches.</div></div>
+    <div class="recipe-step"><div class="step-num">6</div><div class="step-text">Réfrigérer minimum 4h (idéalement une nuit). Saupoudrer généreusement de cacao amer juste avant de servir.</div></div>
+  </div>
+</div>
+
+<div class="recipe-card">
+  <div class="recipe-card-title" style="margin-bottom:12px;">Conseils de la maison</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+    <div class="detail-chip" style="padding:10px;flex-direction:column;align-items:flex-start;gap:4px;">
+      <span style="color:var(--gold);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;">Température</span>
+      <span style="font-size:12px;color:rgba(245,239,224,0.7);">Servir entre 4° et 6°C</span>
+    </div>
+    <div class="detail-chip" style="padding:10px;flex-direction:column;align-items:flex-start;gap:4px;">
+      <span style="color:var(--gold);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;">Conservation</span>
+      <span style="font-size:12px;color:rgba(245,239,224,0.7);">48h max au réfrigérateur</span>
+    </div>
+    <div class="detail-chip" style="padding:10px;flex-direction:column;align-items:flex-start;gap:4px;">
+      <span style="color:var(--gold);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;">Café</span>
+      <span style="font-size:12px;color:rgba(245,239,224,0.7);">Bien refroidi avant utilisation</span>
+    </div>
+    <div class="detail-chip" style="padding:10px;flex-direction:column;align-items:flex-start;gap:4px;">
+      <span style="color:var(--gold);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;">Blancs en neige</span>
+      <span style="font-size:12px;color:rgba(245,239,224,0.7);">Fermes mais pas trop battus</span>
+    </div>
+  </div>
+</div>
+```
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  // ── Firebase config ──
+  const FIREBASE_URL = 'https://imen-tiramisu-default-rtdb.europe-west1.firebasedatabase.app';
+
+  let orders = [];
+  let currentFilter = 'all';
+  let selectedVariante = 'Classique';
+
+  // Date
+  const d = new Date();
+  document.getElementById('currentDate').textContent = d.toLocaleDateString('fr-FR', {weekday:'long',day:'numeric',month:'long',year:'numeric'});
+
+  // Default datetime
+  const now = new Date();
+  now.setMinutes(now.getMinutes() + 30);
+  document.getElementById('deliveryDate').value = now.toISOString().slice(0,16);
+
+  // ── Firebase helpers ──
+  async function fbGet() {
+    const res = await fetch(FIREBASE_URL + '/orders.json');
+    const data = await res.json();
+    if (!data) return [];
+    return Object.entries(data).map(([key, val]) => ({...val, _key: key}));
+  }
+
+  async function fbSet(order) {
+    await fetch(FIREBASE_URL + '/orders/' + order.id + '.json', {
+      method: 'PUT',
+      body: JSON.stringify(order)
+    });
+  }
+
+  async function fbDelete(id) {
+    await fetch(FIREBASE_URL + '/orders/' + id + '.json', { method: 'DELETE' });
+  }
+
+  // ── Sync temps réel via SSE ──
+  function startRealtimeSync() {
+    const es = new EventSource(FIREBASE_URL + '/orders.json');
+    es.addEventListener('put', () => { loadOrders(); });
+    es.addEventListener('patch', () => { loadOrders(); });
+  }
+
+  async function loadOrders() {
+    orders = await fbGet();
+    orders.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    renderOrders();
+  }
+
+  function switchTab(tab) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  function selectVariante(el, name) {
+    document.querySelectorAll('.variante-card').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedVariante = name;
+  }
+
+  function changeQty(delta) {
+    const input = document.getElementById('qtyInput');
+    const val = Math.max(1, Math.min(50, parseInt(input.value) + delta));
+    input.value = val;
+  }
+
+  async function createOrder() {
+    const client = document.getElementById('clientName').value.trim();
+    const employee = document.getElementById('employee').value;
+    const delivery = document.getElementById('deliveryDate').value;
+    const note = document.getElementById('kitchenNote').value.trim();
+    const format = document.getElementById('format').value;
+    const qty = document.getElementById('qtyInput').value;
+    const priority = document.getElementById('priority').value;
+
+    if (!client) { showToast('⚠ Veuillez entrer un nom de client'); return; }
+    if (!employee) { showToast('⚠ Veuillez assigner un employé'); return; }
+
+    const order = {
+      id: 'CMD-' + Date.now().toString(36).toUpperCase(),
+      client, employee, delivery, note, format, qty,
+      priority, variante: selectedVariante,
+      status: 'en-attente',
+      createdAt: new Date().toISOString()
+    };
+
+    await fbSet(order);
+    showToast('✓ Commande envoyée à ' + employee);
+
+    document.getElementById('clientName').value = '';
+    document.getElementById('kitchenNote').value = '';
+    document.getElementById('qtyInput').value = '1';
+    document.getElementById('employee').value = '';
+
+    setTimeout(() => {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-commandes').classList.add('active');
+      document.querySelectorAll('.tab-btn')[0].classList.add('active');
+    }, 400);
+  }
+
+  function setFilter(filter, btn) {
+    currentFilter = filter;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderOrders();
+  }
+
+  async function updateStatus(id, newStatus) {
+    const o = orders.find(o => o.id === id);
+    if (o) { o.status = newStatus; await fbSet(o); }
+  }
+
+  async function deleteOrder(id) {
+    await fbDelete(id);
+    showToast('Commande supprimée');
+  }
+
+  async function cycleStatus(id) {
+    const o = orders.find(o => o.id === id);
+    if (!o) return;
+    const cycle = { 'en-attente': 'en-cours', 'en-cours': 'pret', 'pret': 'en-attente' };
+    o.status = cycle[o.status];
+    await fbSet(o);
+  }
+
+  function renderOrders() {
+    const list = document.getElementById('ordersList');
+    const empty = document.getElementById('emptyState');
+
+    let filtered = currentFilter === 'all' ? orders : orders.filter(o => o.status === currentFilter);
+
+    const count = document.getElementById('ordersCount');
+    count.textContent = filtered.length + (filtered.length <= 1 ? ' commande' : ' commandes');
+
+    if (filtered.length === 0) {
+      list.innerHTML = '';
+      list.appendChild(empty);
+      empty.style.display = 'block';
+      return;
+    }
+
+    empty.style.display = 'none';
+
+    list.innerHTML = filtered.map(o => {
+      const date = o.delivery ? new Date(o.delivery).toLocaleString('fr-FR', {day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}) : '—';
+      const created = new Date(o.createdAt).toLocaleTimeString('fr-FR', {hour:'2-digit',minute:'2-digit'});
+      const priorityIcon = o.priority === 'urgent' ? '🔴' : o.priority === 'basse' ? '🟢' : '🟡';
+
+      return `
+        <div class="order-card" id="card-${o.id}">
+          <div class="order-top">
+            <div class="order-meta">
+              <div class="order-id">${o.id}</div>
+              <div class="order-client">${o.client}</div>
+              <div class="order-timestamp">Créée à ${created}</div>
+            </div>
+            <button class="status-badge status-${o.status}" onclick="cycleStatus('${o.id}')">
+              ${o.status === 'en-attente' ? 'En attente' : o.status === 'en-cours' ? 'En cours' : '✓ Prêt'}
+            </button>
+          </div>
+          <div class="order-details">
+            <span class="detail-chip">👨‍🍳 ${o.employee}</span>
+            <span class="detail-chip">🍰 ${o.variante}</span>
+            <span class="detail-chip">📦 ${o.qty}x ${o.format}</span>
+            <span class="detail-chip">🕐 ${date}</span>
+            <span class="detail-chip">${priorityIcon} ${o.priority.charAt(0).toUpperCase() + o.priority.slice(1)}</span>
+          </div>
+          ${o.note ? `<div class="order-note">💬 ${o.note}</div>` : ''}
+          <div class="order-actions">
+            <button class="action-btn btn-progress" onclick="updateStatus('${o.id}','en-cours')">▶ En cours</button>
+            <button class="action-btn btn-done" onclick="updateStatus('${o.id}','pret')">✓ Prêt</button>
+            <button class="action-btn btn-delete" onclick="deleteOrder('${o.id}')">✕ Suppr.</button>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2800);
+  }
+
+  // Démarrage
+  loadOrders();
+  startRealtimeSync();
+</script>
+
+</body>
+</html>
